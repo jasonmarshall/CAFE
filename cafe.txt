@@ -1,0 +1,518 @@
+;+
+;  --------------------------------------------------------------------------
+; |                                 cafe.txt                                 |
+;  --------------------------------------------------------------------------
+;
+;   This file contains input for the Continuum And Feature Extractor
+;   (aka, CAFE) fitting tool for astronomical SEDs comprised of both
+;   spectral and photometric data.
+;
+;   Note: Data in this file is read using the JAM_ReadData function.
+;         Each line beginning with ";>" contains a parameter or setting
+;         for the fitting routine. The ";+" and ";-" lines at the
+;         beginning and end of the file must remain in place (to indicate
+;         the block of header data). All other lines are ignored as comments.
+;         Text after a "|" character on data lines is ignored as a comment.
+;
+;  ---------------------------- MPFIT OPTIONS -------------------------------
+;
+;  These are parameters for MPFit (the least-squares fitting routine
+;  used in the fit). In most cases, they do not need to be changed.
+;
+;> MP_EPS     = 1D-3        | Required relative MPFit accuracy.
+;> MP_MaxIter = 200         | Maximum number of MPFit iterations.
+;> MP_Quiet   = 1           | Suppress MPFit messages.
+;
+;  -------------------------- OUTPUT FILE OPTIONS ---------------------------
+;
+;  The fitting routine optionally outputs a number of text files, plots,
+;  and binary IDL (.xdr) files. Choose which files to output to disk here.
+;  Files are saved to the output directory indicated by the system variable
+;  '!CAFE.Out' which should be set in the user's 'startup.pro' file before
+;  running CAFE. This is done by adding the following line to 'startup.pro': 
+;    DefSysV, '!CAFE', { In:<insert input directory>, Out:<insert output dir> }
+;
+;> Save_INF = 1             | Set to save info .txt file.
+;> Save_LOG = 1             | Set to save log .txt file.
+;> Save_XDR = 1             | Set to save CAFE .xdr file.
+;> Save_PAH = 1             | Set to save PAH profile file.
+;> Save_LIN = 1             | Set to save LIN profile file.
+;
+;  --------------------------- IRS PLOT OPTIONS ----------------------------
+;
+;  Toggle various plot options on (1) or off (0) and choose which fitted
+;  components (or sub-components) to show in the IRS region output plot.
+;  Note: These options do not affect the fit, only the plotted output.
+;
+;> Make_IRS_Plot = 1         | Create IRS plots.
+;> Alt_IRS_Leg   = 0         | Plot legend on opposite side.
+;
+;> Plot_IRS_COL  = 0         | Set to create IRS color plot.
+;> Plot_IRS_MIX  = 1         | Set to create IRS mixed linestyle plot.
+;> Plot_IRS_BNW  = 1         | Set to create IRS black-and-white plot.
+;
+;> Plot_IRS_RES  = 0         | Set to create residuals plot.
+;
+;> Plot_IRS_XAXS = 0         | 0->Wave, 1->Freq.
+;> Plot_IRS_YAXS = 0         | 0/1->f_nu[Jy/mJy], 2->f_lambda, 3->nu*f_nu.
+;> Plot_IRS_XALT = 0         | Set to include upper x-axis.
+;> Plot_IRS_XLOG = 1         | Plot logarithmic x-axis.
+;> Plot_IRS_YLOG = 1         | Plot logarithmic y-axis.
+;> Plot_IRS_TIM  = 1         | Plot text in Times font.
+;
+;> Plot_IRS_DAT  = 1         | Set to show photometric and IRS data.
+;> Plot_IRS_FIT  = 1         | Set to show total fitted component.
+;> Plot_IRS_CON  = 1         | Set to show summed fitted dust (CIR+CLD+COO+WRM+HOT)...
+;                            | ...and source (STR+STB+DSK) continuum components.
+;> Plot_IRS_LIN  = 1         | Set to show LIN component.
+;> Plot_IRS_LINONCON = 1     | Set to show LIN component atop continuum (for visibility).
+;> Plot_IRS_PAH  = 1         | Set to show total PAH component.
+;> Plot_IRS_PAHONCON = 1     | Set to show PAH component atop continuum (for visibility).
+;> Plot_IRS_SUBPAH = 1       | Set to show sub-components of each PAH complex.
+;> Plot_IRS_CIR  = 1         | Set to show CIR component.
+;> Plot_IRS_CLD  = 1         | Set to show CLD component.
+;> Plot_IRS_COO  = 1         | Set to show COO component.
+;> Plot_IRS_WRM  = 1         | Set to show WRM component.
+;> Plot_IRS_HOT  = 1         | Set to show HOT component.
+;> Plot_IRS_STR  = 1         | Set to show STR component.
+;> Plot_IRS_STB  = 1         | Set to show STB (SB99 total model) component.
+;> Plot_IRS_STB_100 = 0      | Set to show STB_100 (SB99, 100 Myr) sub-component.
+;> Plot_IRS_STB_010 = 0      | Set to show STB_010 (SB99, 10 Myr) sub-component.
+;> Plot_IRS_STB_002 = 0      | Set to show STB_002 (SB99, 2 Myr) sub-component.
+;> Plot_IRS_DSK  = 1         | Set to show DSK (AGN accretion disk) component.
+;
+;> Plot_IRS_EDAT = 1         | Set to shade 1-sigma data errors.
+;> Plot_IRS_EFIT = 1         | Set to shade 1-sigma fit errors.
+;
+;> Label_IRS_SIL = 0         | Set to label 9.7 and 18 um silicate feature regions.
+;> Label_IRS_LIN = 0         | Set to annotate fitted lines. Which lines are shown is
+;                            | controlled by the input from the file cafe.lines.txt.
+;                            | All detected lines with SHOW=1 in that file are labeled.
+;
+;  The following inputs set options for the appearance of the IRS plot.
+;
+;> Plot_IRS_dx   = 0.04      | Sets the amount of wavelength "padding" to
+;                            | show in IRS plot (i.e., increasing this number
+;                            | will extend the wavelength axes above and below
+;                            | the minimum and maximum data wavelengths).
+;> Plot_IRS_dy   = 0.05      | Same as above but for flux density "padding" in IRS plot.
+;
+;  ---------------------------- SED PLOT OPTIONS ----------------------------
+;
+;  Toggle various plot options on (1) or off (0) and choose which fitted
+;  components (or sub-components) to show in the full SED output plot.
+;  Note: These options do not affect the fit, only the plotted output.
+;
+;> Make_SED_Plot = 1         | Create SED plots.
+;> Alt_SED_Leg   = 0         | Plot legend on opposite side.
+;
+;> Plot_SED_COL  = 0         | Set to create SED color plot.
+;> Plot_SED_MIX  = 1         | Set to create SED mixed plot.
+;> Plot_SED_BNW  = 1         | Set to create SED B&W plot.
+;
+;> Plot_SED_RES  = 0         | Set to create SED residuals.
+;
+;> Plot_SED_XAXS = 0         | 0->Wave, 1->Freq.
+;> Plot_SED_YAXS = 0         | 0/1->f_nu[Jy/mJy], 2->f_lambda, 3->nu*f_nu.
+;> Plot_SED_XALT = 0         | Set to include upper x-axis.
+;> Plot_SED_XLOG = 1         | Plot logarithmic x-axis.
+;> Plot_SED_YLOG = 1         | Plot logarithmic y-axis.
+;> Plot_SED_TIM  = 1         | Plot text in Times font.
+;
+;> Plot_SED_DAT  = 1         | Set to plot data.
+;> Plot_SED_FIT  = 1         | Set to plot total fit.
+;> Plot_SED_CON  = 0         | Set to show summed fitted dust (CIR+CLD+COO+WRM+HOT)...
+;                            | ...and source (STR+STB+DSK) continuum components.
+;> Plot_SED_LIN  = 0         | Set to plot LIN component.
+;> Plot_SED_PAH  = 1         | Set to plot PAH component.
+;> Plot_SED_CIR  = 1         | Set to plot CIR component.
+;> Plot_SED_CLD  = 1         | Set to plot CLD component.
+;> Plot_SED_COO  = 1         | Set to plot COO component.
+;> Plot_SED_WRM  = 1         | Set to plot WRM component.
+;> Plot_SED_HOT  = 1         | Set to plot HOT component.
+;> Plot_SED_STR  = 1         | Set to plot STR component.
+;> Plot_SED_STB  = 1         | Set to plot STB component.
+;> Plot_SED_STB_100 = 0      | Set to show STB_100 (SB99, 100 Myr) sub-component.
+;> Plot_SED_STB_010 = 0      | Set to show STB_100 (SB99, 10 Myr) sub-component.
+;> Plot_SED_STB_002 = 0      | Set to show STB_100 (SB99, 2 Myr) sub-component.
+;> Plot_SED_DSK  = 1         | Set to plot DSK component.
+;
+;> Plot_SED_EDAT = 1         | Set to shade data errors.
+;> Plot_SED_EFIT = 1         | Set to shade fit errors.
+;
+;  The following inputs set options for the appearance of the SED plot.
+;
+;> Plot_SED_dx   = 0.24      | Sets the amount of wavelength "padding" to
+;                            | show in SED plot (i.e., increasing this number
+;                            | will extend the wavelength axes above and below
+;                            | the minimum and maximum data wavelengths).
+;> Plot_SED_dy   = 0.50      | Same as above but for flux density "padding" in SED plot.
+;
+;  ---------------------------- COMPONENT LABELS ----------------------------
+;
+;  These are the text names for each fitted component that will be printed in 
+;  plot legends (note that only components which are actually fitted in a given
+;  run will show up in plot legends).
+;
+;> Label_CIR = 'Cirrus'
+;> Label_CLD = 'Cold'
+;> Label_COO = 'Cool'
+;> Label_WRM = 'Warm'
+;> Label_HOT = 'Hot'
+;> Label_LIN = 'Lines'
+;> Label_PAH = 'PAHs'
+;> Label_STR = 'ISRF'
+;> Label_DSK = 'AGN'
+;> Label_STB = 'SB99'
+;
+;  ------------------------- COMPONENT SOURCE SEDs --------------------------
+;
+;  These are the SEDs used as the heating sources for each dust component.
+;  In other words, the radiation field SEDs listed here illuminate and heat
+;  the indicated dust component. Options for source SEDs are: 'ISRF', 'AGN', 
+;  'SB2MYR', 'SB10MYR', and 'SB100MYR' (the latter of which are SB99 models).
+;  Changing this parameter will likely have a near-negligible impact on most
+;  dust emission SEDs; but the option to change the heating SED is provided
+;  for completeness and to allow experimentation in various situations.
+;
+;> Source_CIR = 'ISRF'
+;> Source_CLD = 'ISRF'
+;> Source_COO = 'ISRF'
+;> Source_WRM = 'ISRF'
+;> Source_HOT = 'AGN'
+;
+;  ----------------------------- MODEL OPTIONS -----------------------------
+;
+;  The following options control how the CAFE fitting is implemented and run.
+;  In particular, the number of logarithmic wavelength weighting bins in which
+;  to divide up the SED is set here. Read more about this in the CAFE_WEIGHTS
+;  routine in cafe.pro.
+;
+;> WeightBins = 10.D        | Number of logarithmic weighting bins to divide SED into.
+;> WeighSIL = 1             | Set to weight the depth of the 10um feature. In some cases,
+;                           | it might be useful to unweight IRS data in the depth of
+;                           | the 9.7um feature--e.g., if the data is extremely noisy
+;                           | and the fit in that region is being dominated by noisy 
+;                           | (potentially high) data points. Set WeighSIL = 0 to
+;                           | unweight IRS data from 9.2 to 11 microns from the fit.
+;> DoFilter = 1             | Integrate over photometric filters if available when
+;                           | fitting photometric data. Set to 0 to just fit the
+;                           | wavelength point.
+;> ExtOrAbs = 'EXT'         | Use 'EXT'=K_Ext (absorption + scattering) -or- 
+;                           | 'ABS'=K_Abs (absorption only) model when creating
+;                           | extinction curves.
+;> Draine_Or_OHMc = 'OHMc'  | Use 'Draine' or 'OHMc' dust model (the primary difference
+;                           | is in the 9.7 and 18 micron silicate features). See
+;                           | Marshall et al. (2018) and references therein.
+;
+;  ------------------------ PAH & LINE MODEL OPTIONS -----------------------
+;
+;  Settings that control the fitting of the PAH complexes and emission lines.
+;  Initial values of the properties of PAH features are defined and obtained from
+;  the 'jam_pahdrude.pro' routine. Initial values and properties of the atomic and
+;  molecular emission lines are obtained from the files 'lines.atomic.txt' and
+;  'lines.molecular.txt', respectively (available in the "tables" directory of the
+;  "JAM" IDL library.
+;
+;> FitLINs  = 1             | Should we fit emission lines? (1=Yes, 0=No)
+;> FitPAHs  = 1             | Should we fit PAH complexes? (1=Yes, 0=No)
+;> FixWave0_PAH = 1         | Let the central wavelengths of PAHs vary during the fit?
+;> FixGamma_PAH = 1         | Let the widths of PAH features vary during the fit?
+;> FixWave0_LIN = 1         | Let the central wavelengths of lines vary during the fit?
+;> FixGamma_LIN = 1         | Let the widths of emission lines vary during the fit?
+;
+;  The following all set how much each of the parameters is allowed to fractionally 
+;  vary. A value of -1 indicates that a parameter is allowed to vary freely from its 
+;  initial value.
+;
+;> EPSWave0_PAH = 2.5D-3    | Wave0 -> +/- ~0.5 IRS pixels.
+;> EPSGamma_PAH = 0.2D      | FWHM  -> +/- 20%.
+;> EPSPeak_PAH  = -1.D      | Peak PAH flux densities range freely by default.
+;> EPSWave0_LIN = 2.5D-3    | Wave0 -> +/- ~0.5 IRS pixels.
+;> EPSGamma_LIN = 0.2D      | FWHM  -> +/- 20%.
+;> EPSPeak_LIN  = -1.D      | Peak line flux densities range freely by default.
+;
+;  ----------------- PHOTOMETRY SCALING AND UNCERTAINTIES -----------------
+;
+;  The following settings can be used to scale all photometric points in
+;  a given photometric bin (if, e.g., there is some systematic offset of one
+;  dataset relative to another):
+;
+;> ScaleOPT = 1.D      | "Optical" (OPT): wavelength < 1 micron
+;> ScaleNIR = 1.D      | Near-IR (NIR): 1 micron < wavelength < 5 micron (or start of IRS)
+;> ScaleIRS = 1.D      | IRS: the IRS spectrum
+;> ScaleMIR = 1.D      | Mid-IR (MIR): 5 micron < wavelength < 40 micron
+;> ScaleFIR = 1.D      | Far-IR (FIR): 40 micron < wavelength < 1300 micron
+;> ScaleRAD = 1.D      | "Radio" (RAD): wavelength > 1300 micron
+;
+;  The following settings are used to set an additional constant 1-sigma 
+;  uncertainty value for the given photometric bin (defined above). The purpose
+;  of this is to add a systematic uncertainty due to scaling or aperture effects.
+;  These uncertainties are added in quadrature to the statistical uncertainties
+;  (possibly) provided in the data.
+;
+;> ErrOPT   = 0.05D    | I.e., a 5% systematic uncertainty at each data point.
+;> ErrNIR   = 0.05D    |
+;> ErrIRS   = 0.02D    | Approximate IRS flux calibration uncertainty.
+;> ErrMIR   = 0.D      |
+;> ErrFIR   = 0.D      |
+;> ErrRAD   = 0.1D     |
+;> ErrLBand = 0.D      | Uncertainty specific to any L-band photometry.
+;> ErrIRAC1   = 0.05   | Calibration/Color uncertainty for IRAC channel 1.
+;> ErrIRAC2   = 0.05   | Calibration/Color uncertainty for IRAC channel 2.
+;> ErrMIPS24  = 0.1    | Calibration uncertainty for MIPS24.
+;> ErrMIPS70  = 0.2    | Calibration uncertainty for MIPS70.
+;> ErrMIPS160 = 0.2    | Calibration uncertainty for MIPS160.
+;
+;  --------------------- FITTING AND PLOTTING OPTIONS ---------------------
+;
+;  The following settings select which photometric data to include in the fit.
+;  These are binary toggles, so a value of 1 (0) indicates that data in the given
+;  photometric bin should (should not) be included in the fit. Note that these 
+;  values do NOT overide the "FIT" toggles for each individual data point which
+;  may (optionally) be provided in the ".sed.txt" supplementary photometry data
+;  file (see "sed.pro" for details of the format and structure of this data file). 
+;
+;> FitOPT  = 0       | "Optical" (OPT): wavelength < 1 micron
+;> FitNIR  = 0       | Near-IR (NIR): 1 micron < wavelength < 5 micron (or start of IRS)
+;> FitMIR  = 0       | Mid-IR (MIR): 5 micron < wavelength < 40 micron
+;> FitIRS  = 1       | IRS: the IRS spectrum
+;> FitFIR  = 1       | Far-IR (FIR): 40 micron < wavelength < 1300 micron
+;> FitRAD  = 0       | "Radio" (RAD): wavelength > 1300 micron
+;
+;  The following settings select which photometric data bins are included in
+;  any plots that are produced as output from a CAFE run.
+;
+;> PlotOPT = 0       |
+;> PlotNIR = 0       |
+;> PlotMIR = 0       |
+;> PlotIRS = 1       |
+;> PlotFIR = 1       |
+;> PlotRAD = 0       |
+;> CircleIRAC = 0    | Set this toggle (to 1) to draw a circle around IRAC data.
+;> CircleMIPS = 0    | Set this toggle (to 1) to draw a circle around MIPS data.
+;
+;  ----------------------- COSMOLOGICAL PARAMETERS ------------------------
+;
+;  Set the cosmological parameters used to calculate luminosity distances.
+;
+;> h0 = 0.7D                | Year-3 WMAP -> h0 = 0.73
+;> Omega_M = 0.3D           | Year-3 WMAP -> Omega_M = 0.24
+;> Lambda0 = 0.7D           | Year-3 WMAP -> Lambda0 = 0.76
+;
+;  ------------------------ REFERENCE WAVELENGTHS -------------------------
+;
+;  Reference wavelengths for each of the fit components (defined below).
+;  These should be wavelengths at which each component approximately dominates
+;  the overall emission (as much as is possible). The component flux fit
+;  parameters below (e.g., "_WRM_FLX") indicate the initial fraction of the 
+;  observed SED's flux density which is initially to be attributed to that
+;  component at the reference wavelength below (so Wave_WRM = 20 microns for 
+;  the "WRM" component). During the fit, these initial flux density values
+;  at these reference wavelengths are allowed to vary as fit parameters.
+;
+;> Wave_CIR = 450.D         | CIR reference wavelength in um.
+;> Wave_CLD = 70.D          | CLD reference wavelength in um.
+;> Wave_COO = 35.D          | COO reference wavelength in um.
+;> Wave_WRM = 20.D          | WRM reference wavelength in um.
+;> Wave_HOT = 3.5D          | HOT reference wavelength in um.
+;> Wave_STR = 1.6D          | STR reference wavelength in um.
+;> Wave_DST = 9.7D          | DST (dust) extinction reference wavelength in um.
+;> Wave_PAH = 6.22D         | PAH reference wavelength in um.
+;
+;  -------------------- FIT PARAMETER INITIAL VALUES ---------------------- 
+;
+;  The following are the actual fit parameters. The names of all such fit 
+;  parameters must begin with an "_" character in this file (that's how the
+;  routine knows they are fit parameters). The values given for each parameter
+;  are the initial values used during the least-squares fit. Care should be
+;  taken to make these as close as possible to sensible values. Doing so with
+;  help ensure that the fit arrives at a reasonably (and hopefully globally
+;  minimized) solutions (and not just a local minimum). For details about
+;  how each fit parameter is defined, see Marshall et al. (2007). Note that
+;  if you want to exclude a component from a fit, you must both: (1) set the
+;  component's initial flux (e.g., _WRM_FLX) at its reference wavelength to 0,
+;  and (2) fix that parameter in the fit in the following section (i.e., in this
+;  case, set: FIX_WRM_FLX = 1) so that it can't vary from its initial zero value.
+;
+;  "CIRRUS" DUST COMPONENT
+;> _CIR_FLX = 0.D           | CIR dust component initial flux ratio @Wave_CIR (see above).
+;> _CIR_TMP = 3.74D         | CIR dust component initial temperature.
+;
+;  "COLD" DUST COMPONENT
+;> _CLD_FLX = 0.5D          | CLD dust component initial flux ratio @Wave_CLD.
+;> _CLD_TMP = 6.89D         | CLD dust component initial temperature.
+;
+;  "COOL" DUST COMPONENT
+;> _COO_FLX = 0.8D          | COO dust component initial flux ratio @Wave_COO.
+;> _COO_TMP = 25.D          | COO dust component initial temperature.
+;> _COO_TAU = 0.D           | Initial tau(9.7um) to COO dust component. 
+;> _COO_MIX = 0.D           | Fraction of extinction from mixed mode ([1-exp(-tau)]/tau).
+;> _COO_COV = 1.D           | Fraction of COO dust component covered by this extinction.
+;
+;  "WARM" DUST COMPONENT
+;> _WRM_FLX = 0.8D          | WRM dust component initial flux ratio @Wave_WRM.
+;> _WRM_TMP = 70.D          | WRM dust component initial temperature.
+;> _WRM_TAU = 0.5D          | Initial tau(9.7um) to WRM dust component. 
+;> _WRM_MIX = 0.D           | Fraction of extinction from mixed mode ([1-exp(-tau)]/tau).
+;> _WRM_COV = 1.D           | Fraction of WRM dust component covered by this extinction.
+;
+;  "HOT" DUST COMPONENT
+;> _HOT_FLX = 0.D           | HOT dust component initial flux ratio @Wave_HOT.
+;> _HOT_TMP = 571.6D        | _HOT_TMP = 571.6 -> <HOT_TMP> = 1250K.
+;> _HOT_TAU = 0.D           | Initial tau(9.7um) to HOT dust component. 
+;> _HOT_MIX = 0.D           | Fraction of extinction from mixed mode ([1-exp(-tau)]/tau).
+;> _HOT_COV = 1.D           | Fraction of HOT dust component covered by this extinction.
+;
+;  "STELLAR" COMPONENT (ISRF)
+;> _STR_FLX = 0.5D          | STR component initial flux ratio @Wave_STR.
+;> _STR_TAU = 0.D           | Initial tau(9.7um) to STR component.
+;> _STR_MIX = 1.D           | Fraction of extinction from mixed mode ([1-exp(-tau)]/tau).
+;> _STR_COV = 1.D           | Fraction of STR component covered by this extinction.
+;
+;  "STARBURST" COMPONENT (SB99) [See Marshall et al. (2007)]
+;> _STB_FLX = 0.D           | STB component initial flux ratio @Wave_STB.
+;> _STB_TAU = 0.2D          | Initial tau(9.7um) to STB component. 
+;> _STB_MIX = 0.D           | Fraction of extinction from mixed mode ([1-exp(-tau)]/tau).
+;> _STB_COV = 1.D           | Fraction of STB component covered by this extinction.
+;> _STB_100 = 0.5D          | Fraction of STB component from SB99-100Myr model.
+;> _STB_010 = 1.D           | Fraction of remaining STB component from SB99-10Myr model
+;                           | (the remainder is modeled from the SB99-2Myr model).
+;
+;  "DISK" COMPONENT (AGN ACCRETION DISK) [See Marshall et al. (2007)]
+;> _DSK_FLX = 0.D           | DSK component initial flux ratio @Wave_DSK.
+;> _DSK_TAU = 2.13D         | Screen extinction: tau_DSK(9.7)=2.13 -> tau_DSK(V)=25
+;> _DSK_COV = 1.D           | Fraction of DSK component covered by this screen extinction.
+;
+;  "PAH" COMPONENT
+;> _PAH_FLX = 1.D           | PAH component initial flux ratio @Wave_PAH.
+;> _PAH_TAU = 0.D           | Initial tau(9.7um) to PAH component. 
+;> _PAH_MIX = 1.D           | Fraction of extinction from mixed mode ([1-exp(-tau)]/tau).
+;> _PAH_COV = 1.D           | Fraction of PAH component covered by this extinction.
+;
+;  ADDITIONAL OPACITY SOURCES
+;  (The following are added equally to all components with non-zero
+;   dust extinction. The physical model is therefore that these opacity 
+;   sources exist within a cold screen surrounding all components.
+;   See 'ice_opacity.txt' and 'hac_opacity.txt'.)
+;> _TAU_ICE = 0.1D          | 6.1 micron optical depth due to water ice.
+;> _TAU_HAC = 0.1D          | 6.85 micron optical depth due to HAC.
+;
+;  ------------------------- FIX FIT PARAMETERS -------------------------- 
+;
+;  The following settings are used to control which of the fit parameters
+;  defined above are allowed to vary and which are help fixed during the
+;  fit (and thus are not free parameters). Of particular importance, if 
+;  you want to suppress a component during the fit (perhaps because it
+;  doesn't make physical sense for the astrophysical source), then you
+;  should suppress the component by settings its initial flux density to
+;  zero and then fixing this parameter (e.g., for the warm dust component,
+;  set _WRM_FLX = 0.0 and Fix_WRM_FLX = 1).
+;
+;> Fix_CIR_FLX = 1
+;> Fix_CIR_TMP = 1
+;
+;> Fix_CLD_FLX = 0
+;> Fix_CLD_TMP = 0
+;
+;> Fix_COO_FLX = 0
+;> Fix_COO_TMP = 0
+;> Fix_COO_TAU = 1
+;> Fix_COO_MIX = 1
+;> Fix_COO_COV = 1
+;
+;> Fix_WRM_FLX = 0
+;> Fix_WRM_TMP = 0
+;> Fix_WRM_TAU = 0
+;> Fix_WRM_MIX = 1
+;> Fix_WRM_COV = 1
+;
+;> Fix_HOT_FLX = 1
+;> Fix_HOT_TMP = 1
+;> Fix_HOT_TAU = 1
+;> Fix_HOT_MIX = 1
+;> Fix_HOT_COV = 1
+;
+;> Fix_STR_FLX = 0
+;> Fix_STR_TAU = 1
+;> Fix_STR_MIX = 1
+;> Fix_STR_COV = 1
+;
+;> Fix_STB_FLX = 1
+;> Fix_STB_TAU = 1
+;> Fix_STB_MIX = 1
+;> Fix_STB_COV = 1
+;> Fix_STB_100 = 1
+;> Fix_STB_010 = 1
+;
+;> Fix_DSK_FLX = 1
+;> Fix_DSK_TAU = 1
+;> Fix_DSK_COV = 1
+;
+;> Fix_PAH_FLX = 0
+;> Fix_PAH_TAU = 1
+;> Fix_PAH_MIX = 1
+;> Fix_PAH_COV = 1
+;
+;> Fix_TAU_ICE = 0
+;> Fix_TAU_HAC = 0
+;
+;  ------------------------ SET PARAMETER MIN/MAX -------------------------
+;
+;  In the following section, you may (optionally) set minimum and maximum 
+;  values for any parameter to constrain the range over which the parameter
+;  can vary during the fit. In particular, parameters which are fractional
+;  in nature and assumed to range between 0 and 1 are forced to do so via
+;  setting a maximum value below. Minimum values are set by prepending "Min"
+;  to the parameter name (and assigned a value equal to the minimum value)
+;  and maximum values are set by prepending "Max" to the parameter name.
+;  MPFit uses a default value of 0 for the minimum of all parameters.
+;
+;> Max_HOT_TMP = 1027.2D   | This gives a maximum <HOT_TMP> = 1500 K <- AGN heating
+;
+;> Max_COO_MIX = 1.D       | These all range between 0 and 1.
+;> Max_WRM_MIX = 1.D       | ...
+;> Max_HOT_MIX = 1.D       | ...
+;> Max_STR_MIX = 1.D       | ...
+;> Max_STB_MIX = 1.D       | ...
+;> Max_PAH_MIX = 1.D       | ...
+;
+;> Max_COO_COV = 1.D       | ...
+;> Max_WRM_COV = 1.D       | ...
+;> Max_HOT_COV = 1.D       | ...
+;> Max_STR_COV = 1.D       | ...
+;> Max_STB_COV = 1.D       | ...
+;> Max_DSK_COV = 1.D       | ...
+;> Max_PAH_COV = 1.D       | ...
+;
+;> Max_STB_100 = 1.D       | ...
+;> Max_STB_010 = 1.D       | ...
+;
+;> Max_TAU_ICE = 2.D       | Enforce a maximum optical depth to keep
+;> Max_TAU_HAC = 2.D       | the fit from doing bizarre things.
+;
+;  --------------------------- TIE PARAMETERS ---------------------------- 
+;
+;  A parameter's value may be tied to the value of another parameter. In this 
+;  case, the tied parameter is no longer a free parameter in the fit. This could
+;  be used, e.g., to model a situation where multiple components are obscured by
+;  the same foreground cold screen. In this case, you would tie all initial tau
+;  fit parameters to the value of one component.
+;
+;> Tie_HOT_COV = 'DSK_COV'
+;> Tie_HOT_TAU = 'DSK_TAU'
+;> Tie_PAH_TAU = 'WRM_TAU'
+;> Tie_STB_TAU = 'WRM_TAU'
+;
+;  ------------------------- PARAMETER STEP SIZE ------------------------- 
+;
+;  The following should not need to be changed...they set the step-size 
+;  that MPFit uses when varying the indicated parameters.
+;
+;> REL_CIR_TMP = 0.25D        | Relative CIR temperature step.
+;> REL_CLD_TMP = 0.25D        | Relative CLD temperature step.
+;> REL_COO_TMP = 0.25D        | Relative COO temperature step.
+;> REL_WRM_TMP = 0.25D        | Relative WRM temperature step.
+;> REL_HOT_TMP = 0.25D        | Relative HOT temperature step.
+;
+;-  -------------------------------------------------------------
