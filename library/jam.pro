@@ -70,7 +70,7 @@ PRO JAM, Browser=browser
       DEFSYSV, '!JAM', { $
 
          ;; Path to root directory of JAM library:
-         Path: { Tables: FilePath('Tables', Root_Dir=pathJAM) + Path_Sep() }, $
+         Path: { Tables: FilePath('tables', Root_Dir=pathJAM) + Path_Sep() }, $
 
          ;; Minimum and maximum double precision numbers:
          LogMin: 0.95D * ALOG((MACHAR(/Double)).XMin), $
