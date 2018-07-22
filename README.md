@@ -26,6 +26,7 @@ Files are saved to the output directory indicated in the system variable '!CAFE'
 Ensure that all libraries listed above as well as the CAFE distribution (and its included library sub-directories) are in your IDL path. And initialize the JAM and AstroLib IDL libraries from within your 'startup.pro' file via adding the following lines:
 
 > JAM
+
 > AstroLib
 
 Once you've done this, you should see confirmation that each has been initialized during IDL startup at the command line.
