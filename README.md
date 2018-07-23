@@ -21,7 +21,7 @@ Note 2: At the heart of CAFE is the MPFit routine from the Markwardt IDL library
 
 Files are saved to the output directory indicated in the system variable '!CAFE' set in the user's 'startup.pro' file. This system variable should be added before running CAFE by adding the following to 'startup.pro':
 
-> DefSysV, '!CAFE', { In:<insert input directory>, Out:<insert output dir> }
+> DefSysV, '!CAFE', { In:<*insert input directory*>, Out:<*insert output dir*> }
 
 Ensure that all libraries listed above as well as the CAFE distribution (and its included library sub-directories) are in your IDL path. And initialize the JAM and AstroLib IDL libraries from within your 'startup.pro' file via adding the following lines:
 
