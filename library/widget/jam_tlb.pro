@@ -131,7 +131,7 @@ FUNCTION Jam_TLB, Group_Leader=group_leader, Modal=modal, $
   Catch, theError
   IF (theError NE 0) THEN BEGIN
      Catch, /Cancel
-     ok = Error_Message(/Error, /Traceback)
+     ok = cgErrorMsg(/Error, /Traceback)
      RETURN, Obj_New()
   ENDIF
 

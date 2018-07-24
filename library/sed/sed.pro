@@ -389,7 +389,7 @@ PRO SED, object, $
      Catch, theError
      IF (theError NE 0) THEN BEGIN
         Catch, /Cancel
-        ok = Error_Message(/Error)
+        ok = cgErrorMsg(/Error)
         RETURN
      ENDIF
   ENDIF ELSE $

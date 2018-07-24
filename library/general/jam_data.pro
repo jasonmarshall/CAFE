@@ -1449,7 +1449,7 @@ FUNCTION Jam_Data, data, FileName=fileName
   Catch, theError
   IF (theError NE 0) THEN BEGIN
      Catch, /Cancel
-     ok = Error_Message(/Error, /Traceback)
+     ok = cgErrorMsg(/Error, /Traceback)
      RETURN, Obj_New()
   ENDIF
 

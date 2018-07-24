@@ -543,7 +543,7 @@ FUNCTION Jam_Check, $
       RETURN, 0L
     ENDIF
     noName = ~(StrMid(!Error_State.Msg, 0, 5) EQ 'JAM_CHECK')
-    ok = Error_Message(/Error, NoName=noName)
+    ok = cgErrorMsg(/Error, NoName=noName)
     !Except = except
     RETURN, 0L
   ENDIF
@@ -702,7 +702,7 @@ PRO Jam_Check, $
       Message, msg, Level=-1, /Continue
     ENDIF
     noName = ~(StrMid(!Error_State.Msg, 0, 5) EQ 'JAM_CHECK')
-    ok = Error_Message(/Error, NoName=noName)
+    ok = cgErrorMsg(/Error, NoName=noName)
     !Except = except
     RETURN
   ENDIF

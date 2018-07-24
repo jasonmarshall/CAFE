@@ -114,7 +114,7 @@ FUNCTION EFluxIRS, wave, fluxNod1, fluxNod2, SED=SED, CErrIdx=cErrIdx, $
   Catch, theError
   IF (theError NE 0) THEN BEGIN
      Catch, /Cancel
-     ok = Error_Message(/Error)
+     ok = cgErrorMsg(/Error)
      !Except = except
      RETURN, ''
   ENDIF

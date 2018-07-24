@@ -4140,7 +4140,7 @@ PRO Cafe_Plot, SED, input, PS=PS, OutPath=outPath, SubTitle=subTitle, $
   IF (theError NE 0) THEN BEGIN
      Catch, /Cancel
      IF ((Keyword_Set(PS)) AND (!D.Name EQ 'PS')) THEN Jam_PS, /Close
-     ok = Error_Message(/Traceback)
+     ok = cgErrorMsg(/Traceback)
      RETURN
   ENDIF
 
@@ -4754,7 +4754,7 @@ PRO Cafe, object, $
      Catch, theError
      IF (theError NE 0) THEN BEGIN
         Catch, /Cancel
-        ok = Error_Message(/Traceback)
+        ok = cgErrorMsg(/Traceback)
         RETURN
      ENDIF
   ENDIF ELSE $
